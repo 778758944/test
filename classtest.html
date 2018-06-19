@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>class test</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function Person(name) {
+        this.name = name;
+      }
+
+      Person.prototype = {
+        getName: function() {
+          console.log(this.name);
+        }
+      }
+
+      var jack = new Person('jack');
+      console.log(jack);
+
+      function Animal(name) {
+        this.name = name;
+      }
+      // jack.getName();
+    </script>
+  </body>
+</html>

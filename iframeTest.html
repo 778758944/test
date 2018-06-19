@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script type="text/javascript" src='https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js'></script>
+</head>
+<body>
+    <div>hahah</div>
+    <div id='choose'>Choose</div>
+    <div id='token'>getToken</div>
+    <div id='getAvator'>getAvatorByEmail</div>
+    <div id='searchEmail'>searchEmail</div>
+    <div id='setItem'>setItem</div>
+    <div id='getItem'>getItem</div>
+    <div id='record'>record</div>
+    <div id='fileselect'>fileselect</div>
+    <div id='filesave'>filesave</div>
+    <div id='group'>group</div>
+    <div id='chat'>chat</div>
+    <div id='ding'>ding</div>
+    <div id='getUrl'>getUrl</div>
+    <div id='openLink'>openLink</div>
+    <div id='cspacesave'>cspacesave</div>
+    <div id='getVersion'>getVersion</div>
+    <div id='openFullMail'>openFullMail</div>
+    <div id='error'>error</div>
+    <div id="login">login success</div>
+    <script>
+
+        var obj=JSON.parse(window.name);
+        console.log(obj);
+        var hostOrigin=obj.hostOrigin;
+        console.log(obj);
+
+        function choosePerson(){
+          var msgForSend = {
+              msgId : "hahaha",//你定义
+              methodName : "_mailin.choose.person",
+              containerId : obj.containerId,
+              body : {
+                  title : '',//标题
+                  placeholder : '',//选人搜索框
+                  disabledUids : ['mawenbo.pt@alibaba-inc.com'],//禁用uid
+                  selectedUids : []//已经选中的收件人的uid15968184664@163.com
+              }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function getToken(){
+          var msgForSend = {
+            msgId : "hahaha",//你定义
+            methodName : "_mailin.getMailToken" ,
+            containerId : obj.containerId,
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function getAvatorByEmail(){
+          var msgForSend = {
+            msgId:"hehehe",
+            methodName:"_mailin.getDingAvator",
+            containerId:obj.containerId,
+            body:{
+              email:['tianyi.jhx@alibaba-inc.com',"15968184664@163.com","hongyu.zhb@alibaba-inc.com"]
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function searchEmail(){
+          debugger;
+          var msgForSend = {
+            msgId:"sasasa",
+            methodName:"_mailin.getDing.email",
+            containerId:obj.containerId,
+            body:{
+              keyword:'xiao',
+              offset:0,
+              size:8
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function setItemTest(){
+            var msgForSend = {
+              msgId:"sasasa",
+              methodName:"_mailin.set.status",
+              containerId:obj.containerId,
+              body:{
+                keyName:'test',
+                message:"test test"
+              }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+
+        function getItemTest(){
+          var msgForSend = {
+              msgId:"sasasa",
+              methodName:"_mailin.get.status",
+              containerId:obj.containerId,
+              body:{
+                keyName:'test'
+              }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function addRecord(){
+          var msgForSend = {
+            msgId:"sdsd",
+            methodName:"_mailin_add_record",
+            containerId:obj.containerId,
+            body:{
+              recordKey:"hahahah",
+              recordValue:"aaaa"
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+
+        function spaceSelect(){
+          var msgForSend = {
+            msgId:'sdsd',
+            methodName:"_mailin.cspace.select",
+            containerId:obj.containerId,
+            body:{}
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function spaceSave(){
+          var msgForSend = {
+            msgId:'sdsd',
+            methodName:'_mailin.cspace.save',
+            containerId:obj.containerId,
+            body:{
+              url:'http://www.baidu.com'
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function createGroup(){
+          var msgForSend = {
+            msgId:'dcd',
+            methodName:"_mailin.sender.group",
+            containerId:obj.containerId,
+            body:{
+              email:['philip.cp@alibaba-inc.com','binfeng.ybf@alibaba-inc.com'],
+              messageId:"feb1d0a0-15f4-4b94-8c9e-d6dd23ba860d.xiaobo.xwt@alibaba-inc.com",//邮件id
+              tl:'cdcd',//邮件主题
+              content:'cdcd',//邮件摘要
+              file_content:'cdcdcd',//邮件附件数
+              author:"xiaobo",//发件人名称
+              address: 'xiaobo.xwt@alibaba-inc.com'//发件人邮件地址
+            }
+          }
+          debugger;
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function chatTo(){
+          var msgForSend = {
+            msgId:'cdcd',
+            methodName:"_mailin.chat.to",
+            containerId:obj.containerId,
+            body:{
+              email:['philip.cp@alibaba-inc.com']
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function sendDing(){
+          var msgForSend = {
+            msgId:'ss',
+            methodName:"_mailin.send.ding",
+            containerId:obj.containerId,
+            body:{
+              email:['e8mrnnk@dingtalk.com']
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+
+        function getSrc(){
+          var msgForSend = {
+            msgId:"ss",
+            methodName:"_mailin.get.src",
+            containerId:obj.containerId,
+            body:{
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        var reg = /'https'/gi;
+
+
+        function open(){
+          var msgForSend = {
+            msgId:"ss",
+            methodName:"_mailin.openLink",
+            containerId:obj.containerId,
+            body:{
+              url:'https://pre-space.dingtalk.com/s/gwHNE_MCzgXDE4YD2gAgMmQxMTlhMzg4YzRhNDBhZTk1ODhkMjUxNzI1MzUwZmQ'
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+
+        function cspaceSave(){
+
+
+          var msgForSend = {
+            msgId:"ss",
+            methodName:"_mailin.cspaceAttach.save",
+            containerId:obj.containerId,
+            body:{
+              shortLink:'abcd',
+              password:'1234',
+              ids:[1,2,3]
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+
+        function version(){
+          var msgForSend = {
+            msgId:"dd",
+            methodName:'_mailin.get.ddversion',
+            containerId:obj.containerId,
+            body:{}
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+        function openMailFULL(){
+          var msgForSend = {
+            msgId:"dd",
+            methodName:'_mailin.openFullMail',
+            containerId:obj.containerId,
+            body:{
+              url:'https://www.dingtalk.com'
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+
+        function getError(){
+          var msgForSend = {
+            msgId:"dd",
+            methodName:'_mailin.error',
+            containerId:obj.containerId,
+            body:{
+              errMsg:'error'
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+
+        function loginSuccess(){
+          var msgForSend = {
+            msgId:"dd",
+            methodName:'_mailin.login.success',
+            containerId:obj.containerId,
+            body:{
+            }
+          }
+          window.parent.postMessage(msgForSend,hostOrigin);
+        }
+
+
+
+        document.getElementById('choose').addEventListener('click',choosePerson,false);
+        document.getElementById('token').addEventListener('click',getToken,false);
+        document.getElementById('getAvator').addEventListener('click',getAvatorByEmail,false);
+        document.getElementById('searchEmail').addEventListener('click',searchEmail,false);
+        document.getElementById('setItem').addEventListener('click',setItemTest,false);
+        document.getElementById('getItem').addEventListener('click',getItemTest,false);
+        document.getElementById('record').addEventListener('click',addRecord,false);
+        document.getElementById('fileselect').addEventListener('click',spaceSelect,false);
+
+        document.getElementById('filesave').addEventListener('click',spaceSave,false);
+
+        document.getElementById('group').addEventListener('click',createGroup,false);
+        document.getElementById('chat').addEventListener('click',chatTo,false);
+        document.getElementById('ding').addEventListener('click',sendDing,false);
+        document.getElementById('getUrl').addEventListener('click',getSrc,false);
+        document.getElementById('openLink').addEventListener('click',open,false);
+        document.getElementById('cspacesave').addEventListener('click',cspaceSave,false);
+        document.getElementById('getVersion').addEventListener('click',version,false);
+        document.getElementById('openFullMail').addEventListener('click',openMailFULL,false);
+        document.getElementById('error').addEventListener('click',getError,false);
+        document.getElementById('login').addEventListener("click",loginSuccess,false);
+
+        window.addEventListener('message',function(event){
+          // console.log('sdsds');
+          var originData=event.data;
+          console.log(originData.body);
+        });
+
+    </script>
+</body>
+</html>

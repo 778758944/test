@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>test argument</title>
+  </head>
+  <body>
+    <script>
+      function sum(a, b, c){
+        console.log(this);
+        console.log(arguments.callee === sum);
+        return a + b + c;
+      }
+
+      var a = {
+        age: 11,
+        getName: function() {
+          console.log(this);
+        }
+      }
+
+      console.log(sum.call(a, 1, 2, 3));
+      function testArg(a, b){
+        console.log(arguments);
+        Array.prototype.push.apply(arguments, [3]);
+        console.log(arguments);
+        console.log(sum.apply(this, arguments));
+      }
+      testArg(1, 2);
+      function sum2(...args){
+        console.log(args.push);
+      }
+      sum2(1, 2);
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+	<input type='file' id='file'/>
+	<img id='img'/>
+    <script>
+    	var file=document.getElementById('file');
+    	file.onchange=function(e){
+    		// console.log(e);
+    		var aa=file.files[0];
+    		var fr=new FileReader();
+    		console.log(aa.name);
+
+    		fr.onload=function(e){
+    			console.log(e);
+    			console.log(e.target.result);
+    			var uint8=new Uint8Array(e.target.result);
+    			console.log(uint8);
+    			var blob=new Blob([uint8]);
+                console.log(blob);
+    			console.log(URL.createObjectURL(blob));
+    			document.getElementById('img').src=URL.createObjectURL(blob);
+
+    		}
+
+    		fr.readAsArrayBuffer(aa);
+    	}
+    </script>
+</body>
+</html>

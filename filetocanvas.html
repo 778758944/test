@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src='../lib/public/ajax.js'></script>
+<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+<body>
+	<input type="file" id="file1">
+    <div>
+    	<img id="img1"/>
+    </div>
+    <canvas width=500 height=500 id="cvs"></canvas>
+    <script>
+    	var file=document.getElementById("file1");
+    	var img=document.getElementById("img1");
+    	file1.onchange=function(){
+    		var file=this.files[0];
+    		var reader=new FileReader();
+    		var cvs=document.getElementById("cvs");
+    		var ctx=cvs.getContext('2d');
+
+    		reader.onload=function(e){
+    			console.log('loaded');
+    			// console.log(e.result);
+    			img.src=e.target.result;
+    			ctx.drawImage(img,0,0);
+    			var data=cvs.toDataURL().substr(22);
+    			post('recive.php',{data:data},function(res){
+    				img.src=res.path;
+    			})
+
+
+    		}
+
+    		reader.readAsDataURL(file);
+    	}
+    </script>
+</body>
+</html>

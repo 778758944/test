@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <btn id='copy'>copy</btn>
+    <script>
+        function Copy(){
+          debugger;
+            var node = document.createElement('div');
+            node.innerHTML = 'HAHAHA';
+            document.body.appendChild(node);
+
+            var range =document.createRange();
+            range.selectNode(node);
+
+            var selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand('copy');
+            document.body.removeChild(node);
+        }
+
+        document.getElementById('copy').onclick = Copy;
+
+    </script>
+</body>
+</html>

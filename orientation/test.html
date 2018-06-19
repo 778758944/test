@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="./test.js"></script>
+</head>
+<body>
+    <input type="file" id='file'/>
+    <img src="../test.jpg" id="image"/>
+    <script>
+      var input = document.getElementById("file");
+      var image = document.getElementById("image");
+
+      var http = new XMLHttpRequest();
+      http.open('GET', '../test.jpg', true);
+      http.onprogress = function(e){
+        console.log(e);
+      }
+      http.onload = function(e){
+        console.log(e);
+        // console.log(e.target.response);
+      }
+      http.send();
+
+
+
+      // function getOrientation(file, callback){
+      //   var reader = new FileReader();
+      //   reader.onload = function(e){
+      //     var binary = e.target.result;
+      //     console.log(binary);
+      //     var data = new DataView(binary);
+      //     console.log(data);
+      //     if(data.getUint16(0, false) != 0xffd8){
+      //       return callback(-2);
+      //     }
+      //     var offset = 2;
+      //     while (offset < data.byteLength){
+      //       var marker = data.getUint16(offset, false);
+      //       offset += 2;
+      //       if(marker == 0xffe1){
+      //         var tag = data.getUint32(offset+=2, false);
+      //         if(tag != 0x45786966) {
+      //           return callback(-1);
+      //         }
+
+      //       }
+      //     }
+      //   }
+      //   reader.readAsArrayBuffer(file);
+      // }
+
+
+
+      input.onchange = function(e) {
+        getOrientation(e.target.files[0], function(res){
+          console.log(res);
+        });
+      }
+
+    </script>
+</body>
+</html>

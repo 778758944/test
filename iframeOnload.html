@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta charset="referer" content='no-referer'>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style type="text/css">
+  .iframe{
+    width: 100px;
+    height: 300px;
+  }
+</style>
+</head>
+<body>
+    <iframe id='frame'></iframe>
+    <script type="text/javascript">
+      var frame = document.getElementById('frame').contentWindow;
+      document.getElementById('frame').onload = function(){
+        alert('kaka');
+      }
+      frame.onload=function(){
+        alert('sdsds');
+        console.log('content download');
+      }
+    </script>
+</body>
+</html>

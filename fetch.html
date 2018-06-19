@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title>fetch test</title>
+</head>
+<body>
+	<script>
+		fetch('http://sp.aidaojia.com/menu').then(function(res){
+			res.json().then(function(res){
+				console.log(res);
+			})
+		},function(res){
+			alert('no net');
+			console.log(res);
+		})
+	</script>	
+</body>
+</html>

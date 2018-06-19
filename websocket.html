@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <h1>web socket</h1>
+    <input type="file" id="ff"/>
+    <button id="btn">click</button>
+    <img id="girl"/>
+    <audio id="mp3" autoplay></audio>
+    <script>
+      var ws = new WebSocket("ws://localhost:3000");
+      // ws.binaryType = "arraybuffer";
+      console.log(ws);
+      var btn = document.querySelector("#btn");
+      var ff = document.getElementById("ff");
+      var girl = document.getElementById("girl");
+      var mp3 = document.getElementById("mp3");
+      console.log(ff);
+
+      ff.addEventListener("change", function(e) {
+        // console.log(e.target);
+        var reader=new FileReader();
+
+        var reader2 = new FileReader();
+
+        var reader3 = new FileReader();
+
+        reader.onload = function(e) {
+          console.log('array buffer', e);
+          var buffer = new Uint8Array(e.currentTarget.result);
+          console.log(buffer);
+          ws.send(e.currentTarget.result);
+        }
+
+        reader2.onload = function(e) {
+          console.log('binary string', e);
+        }
+
+        reader3.onload = function(e) {
+          console.log("text", e);
+          // ws.send(e.currentTarget.result);
+        }
+
+        reader.readAsArrayBuffer(this.files[0]);
+        reader2.readAsBinaryString(this.files[0]);
+        reader3.readAsText(this.files[0]);
+      }, false)
+      ws.onopen = function(e) {
+        console.log(e);
+        btn.onclick = function() {
+          console.log("click");
+          ws.send("Hello WebSockets!cdncjdncjdncc");
+        }
+      }
+      ws.onmessage = function(e) {
+        console.log("receiving msg");
+        console.log(e);
+        console.log(e.data.slice(0, 10));
+        var url = URL.createObjectURL(e.data);
+        mp3.src = url;
+      }
+
+      ws.onclose = function() {
+        console.log('close');
+      }
+
+      ws.onerror = function(err) {
+        console.log(err);
+      }
+    </script>
+</body>
+</html>

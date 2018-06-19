@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    form post
+  </title>
+</head>
+<body>
+  <form id="testform" enctype="multipart/form-data" method="post" action="/test.php" >
+    <input type="text" value="jack" name="username"/>
+    <input type="password" value="123" name="password"/>
+    <input type="file" name="file"/>
+  </form>
+  <button id="btn">submit</button>
+  <script type="text/javascript">
+    var btn = document.getElementById("btn");
+    var form = document.getElementById("testform");
+    btn.onclick = function() {
+      var formData = new FormData(form);
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/test.php");
+      xhr.send(formData);
+    }
+  </script>
+</body>
+</html>

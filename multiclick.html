@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <button id="btn">click</button>
+  <script type="text/javascript">
+    function sleep(time) {
+      var t = new Date().getTime();
+      while (new Date().getTime() - t < time) {
+
+      }
+    }
+    document.querySelector("#btn").addEventListener("click", function() {
+      console.log(this);
+      console.log("haha");
+      sleep(3000);
+      console.log("leave");
+    }, false);
+  </script>
+</body>
+</html>

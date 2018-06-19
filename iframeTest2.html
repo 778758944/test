@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>钉钉云盘RC版</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" id="favicon" href="https://g.alicdn.com/dingding/web/0.2.6/img/oldIcon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="https://g-assets.daily.taobao.net/ilw/cloud-storage-project/0.6.9/styles/cspace-all.css">
+<script type="text/javascript" src='https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js'></script>
+
+</head>
+<body class="cspace_in_iframe unselectable">
+<div class="absolute_top_full cspace_header_wrap" style="display: none">
+    <div class="cspace_header">
+        <a href="javascript:void(0);">
+            <div class="evt logo " evt="clk_domcommand" _v="go_home"></div>
+        </a>
+        <div class="evt cspace_logout" evt="clk_domcommand" _v="logout">退出</div>
+    </div>
+
+    <div class="evt cspace_header_search cspace_header_nav" evt="clk_domcommand" _v="search" style="display:none;">
+        <b class="ico ico_wrap ico_header_search"></b>
+
+        <div class="cspace_header_item_text">
+            搜索
+        </div>
+    </div>
+</div>
+
+<div class="cspace_content">
+    <div class="absolute_full scroll scroll_auto_y cspace_content_left">
+         <div class="evt cspace_header_recent_dynamic" evt="clk_domcommand" _v="recent_dynamic">
+            <i class="ico_header_coop ico_header_private_dynamic"></i>
+            <div class="cspace_header_coop">
+                文件动态
+            </div>
+            <i class="iconfont coop_new_dot">&#xe608;</i>
+            <i class="ico_action_group"></i>
+        </div>
+        <div class="evt cspace_header_recent_used" evt="clk_domcommand" _v="recent_used">
+            <i class="ico_header_coop ico_header_private_used"></i>
+            <div class="cspace_header_coop">
+                最近使用
+            </div>
+            <i class="iconfont coop_new_dot">&#xe608;</i>
+            <i class="ico_action_group"></i>
+        </div>
+        <div class="evt cspace_header_private" evt="clk_domcommand" _v="private">
+            <i class="ico_header_private ico_header_private_default"></i>
+            <div class="cspace_header_my">
+                我的文件
+            </div>
+            <div class="org_accordion_capacity_wrap">
+                <div class="org_accordion_capacity_progress" style="width:2%;"></div>
+            </div>
+            <div class="org_accordion_capacity_info">&nbsp;</div>
+            <i class="ico_action_group"></i>
+        </div>
+        <div class="evt cspace_header_cooperate" evt="clk_domcommand" _v="cooperate">
+            <i class="ico_header_coop ico_header_private_coop"></i>
+            <div class="cspace_header_coop">
+                共享文件
+            </div>
+            <i class="iconfont coop_new_dot">&#xe608;</i>
+            <i class="ico_action_group"></i>
+        </div>
+        <div class="cspace_org_accordion_wrap"></div>
+    </div>
+    <div class="cspace_content_right_used scroll scroll_auto_y" style="display: none;">
+        <div class="cspace_recent_used_title" style="display: none;">最近打开/下载过的文件</div>
+        <div class="cspace_recent_used_list" style="display: none;"></div>
+        <div class="absolute_full round_loading_wrap" style="display: none;">
+            <div class="round_loading_img_wrap round_loading_center round_loading_big">
+                <img class="round_loading_img round_loading_img_center" src="https://img.alicdn.com/tps/TB1dOspLXXXXXXIaXXXXXXXXXXX-32-32.gif"/>
+            </div>
+        </div>
+        <div style="display: none;" class="absolute_full recent_empty_container_wrap">
+            <div class="recent_empty_wrap">
+                <div class="recent_empty_inner_wrap">
+                    <div class="recent_used_empty_img"></div>
+                    <div class="recent_used_empty_text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cspace_content_right_dynamic scroll scroll_auto_y" style="display: none;">
+        <div class="absolute_horizon_full cspace_recent_dynamic_list ">
+        </div>
+        <div class="absolute_full round_loading_wrap" style="display: none;">
+            <div class="round_loading_img_wrap round_loading_center round_loading_big">
+                <img class="round_loading_img round_loading_img_center"
+                     src="https://img.alicdn.com/tps/TB1dOspLXXXXXXIaXXXXXXXXXXX-32-32.gif"/>
+            </div>
+        </div>
+        <div style="display: none;" class="absolute_full recent_empty_container_wrap">
+            <div class="recent_empty_wrap">
+                <div class="recent_empty_inner_wrap">
+                    <div class="recent_dynamic_empty_img"></div>
+                    <div class="recent_dynamic_empty_text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cspace_content_right" style="display: none;">
+         <div class="cspace_doc_readonly_tips" style="display: none;">只读</div>
+        <div class="cspace_search_wrap">
+            <div class="cspace_file_search_wrap evt" evt="clk_domcommand msdn_domcommand" _v="focus">
+                <i class="iconfont ico_header_input_search">&#xe604;</i>
+                <div class="cspace_file_search_input">
+                    <div class="cspace_file_search_input_textbox">
+                        <div class="evt textbox_wrap " evt="clk_domcommand" _v="focus">
+                            <div class="textbox_place"></div>
+                            <div class="textbox_inner">
+                                <input type="text" class="textbox_input" maxlength="254" tabindex="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cspace_content_toolbar_search" style="display: none"></div>
+        <div class="cspace_main_toolbar_wrap" style="display: none;">
+            <div class="inline_block cspace_main_toolbar"></div>
+        </div>
+
+         <div class="cspace_main_coop_wrap" style="display: none;">
+            <div class="evt inline_block cspace_main_coop_add"  evt="clk_domcommand" _v="add_coop">
+                <b class="ico iconfont icon-shangchuanwenjian ico_toolbar_add_folder ico_wrap ico_toolbar_btn_text"></b>
+                <span class="toolbar_btn_text cspace_toolbar_text">新建共享文件夹</span>
+            </div>
+        </div>
+
+        <div class="cspace_content_crumb"></div>
+            <div class="absolute_horizon_full cspace_content_list_wrap">
+                <div class="absolute_horizon_full cspace_content_list_title_wrap">
+                    <div class="cspace_content_list_title">
+                        <div class="list_suite_all cspace_list_title_select">
+                            <b class="evt ico ico_wrap ico_list_checkbox" evt="clk_domcommand" _v="select"></b>
+                        </div>
+                        <div class="evt cspace_list_title_name" evt="clk_domcommand" _v="sort_name">
+                            <div class="inline_block cspace_list_title_inner">名称</div>
+                            <b class="inline_block cspace_list_sort_ico"></b>
+                        </div>
+                        <div class="evt cspace_list_title_path" evt="clk_domcommand" _v="sort_time">
+                            <div class="inline_block cspace_list_title_inner">所在目录</div>
+                            <b class="inline_block cspace_list_sort_ico"></b>
+                        </div>
+                        <div class="evt cspace_list_title_time" evt="clk_domcommand" _v="sort_time">
+                            <div class="inline_block cspace_list_title_inner">更新时间</div>
+                            <b class="inline_block cspace_list_sort_ico"></b>
+                        </div>
+                        <div class="evt cspace_list_title_size" evt="clk_domcommand" _v="sort_size">
+                            <div class="inline_block cspace_list_title_inner">大小</div>
+                            <b class="inline_block cspace_list_sort_ico"></b>
+                        </div>
+                        <div class="evt cspace_list_title_auth" evt="clk_domcommand" _v="sort_auth">
+                            <div class="inline_block cspace_list_title_inner">上传者</div>
+                            <b class="inline_block cspace_list_sort_ico"></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute_horizon_full cspace_content_toolbar_wrap" style="display: none;">
+                    <div class="cspace_list_title_select list_float_select_all">
+                        <b class="evt ico ico_wrap ico_list_checkbox" evt="clk_domcommand" _v="select"></b>
+                    </div>
+                    <div class="inline_block cspace_list_select_account_text"></div>
+                    <div class="inline_block cspace_content_toolbar"></div>
+                </div>
+                <div class="scroll scroll_auto_y absolute_horizon_full cspace_content_list"></div>
+                <div style="display: none;" class="absolute_full list_empty_container_wrap">
+                    <div class="list_empty_wrap">
+                        <div class="list_empty_inner_wrap">
+                            <div class="list_empty_img"></div>
+                            <div class="list_empty_text">这个文件夹是空的</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute_full round_loading_wrap" style="display: none;">
+                <div class="round_loading_img_wrap round_loading_center round_loading_big">
+                    <img class="round_loading_img round_loading_img_center" src="https://img.alicdn.com/tps/TB1dOspLXXXXXXIaXXXXXXXXXXX-32-32.gif"/>
+                </div>
+            </div>
+    </div>
+    <div class="cspace_drop_mask_layer" id="cspace_drop_mask_layer" style="display: none;">
+        <div class="cspace_drop_container_top">
+            <div class="cspace_drop_container">
+                <div class="csapce_drop_path"></div>
+                <div class="cspace_drop_text">拖拽文件（夹）到此上传</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<iframe id="downloadIframe"  src="" height="0" width="0" border="none"></iframe>
+
+<div class="cspace_preview_wrap" style="display: none;">
+    <div class="cspace_preview_mask"></div>
+    <div class="cspace_preview_header_wrap">
+        <div class="cspace_preview_header">
+            <div class="cspace_preview_title ellipsis"></div>
+            <div class="evt cspace_preview_original" evt="clk_domcommand" _v="view_original">查看原图</div>
+            <div class="evt cspace_preview_download" evt="clk_domcommand" _v="download">下载</div>
+
+        </div>
+    </div>
+
+    <div class="cspace_preview_content">
+        <img class="cspace_preview_img" style="visibility: hidden" />
+        <iframe class="cspace_preview_iframe" style="visibility: hidden"  border="none"></iframe>
+    </div>
+    <div class="evt cspace_preview_nav_left"  evt="clk_domcommand" _v="nav_left"  style="display: none;"></div>
+    <div class="evt cspace_preview_nav_right"  evt="clk_domcommand" _v="nav_right" style="display: none;"></div>
+    <div class="evt cspace_preview_close" evt="clk_domcommand" _v="close"  ></div>
+    <div class="absolute_full round_loading_wrap" style="display: none;">
+        <div class="round_loading_img_wrap round_loading_center round_loading_big">
+            <img class="round_loading_img round_loading_img_center" src="https://img.alicdn.com/tps/TB1dOspLXXXXXXIaXXXXXXXXXXX-32-32.gif"/>
+        </div>
+    </div>
+</div>
+<div id="root_page_form_iframe" style="display:none;">
+    <iframe name="openWinProxyIframe" id="openWinProxyIframe" src="javascript:document.open();document.close();"></iframe>
+</div>
+
+<div style="display:none;">
+    <input type="hidden" id="alimail_global_environment" value="{&quot;version&quot;:&quot;dev&quot;}"/>
+</div>
+<div id="root_finish_div" style="display:none;"></div>
+<div class="cspace_root_mask_layer" id="cspace_root_mask_layer" style="display: none;"></div>
+<!-- <script type="text/javascript"  src="https://g-assets.daily.taobao.net/cspace.js" sqm_static="1" sqm_test="0" sqm_kernel="1" sqm_timeout="20000" sqm_framework="1"></script>
+<script type="text/javascript" src='//cdn.bootcss.com/i18next/7.1.0/i18next.min.js'></script>
+<script type='text/javascript' src='https://space.dingtalk.com/language.js'></script>
+<script type="text/javascript" >
+    (function () {
+        var lang=JSON.parse(window.name).language;
+        console.log(lang);
+
+        i18next.init({
+            lng:lang,
+            fallbackLng:{
+                en:['zh_CN']
+            },
+            resources:{
+                "en_US":{
+                    translation:lang_en_US,
+                },
+                "zh_CN":{
+                    translation:lang_zh_CN,
+                },
+                "zh_TW":{
+                    translation:lang_zh_TW
+                }
+            },
+            initImmediate:true
+        });
+
+        sqm.require([
+            "cspace.CSpaceRoot",
+            "cspace.common.CSpaceUtils",
+            "cspace.data.FileUploadData",
+            "cspace.data.ReconnectRequest",
+            'sqm.dom.DomUtils',
+        ], function (CSpaceRoot, CSpaceUtils,FileUploadData,ReconnectRequest,DomUtils) {
+
+            DomUtils.find(document.body,'.cspace_header_recent_dynamic .cspace_header_coop')[0].innerHTML=i18next.t('cspace_file_status');
+            DomUtils.find(document.body,'.cspace_header_recent_used .cspace_header_coop')[0].innerHTML=i18next.t('cspace_recently_used');
+            DomUtils.find(document.body,'.cspace_header_my')[0].innerHTML=i18next.t('cspace_my_file');
+            DomUtils.find(document.body,'.cspace_header_cooperate .cspace_header_coop')[0].innerHTML=i18next.t('cspace_shared_file');
+            DomUtils.find(document.body,'.cspace_recent_used_title')[0].innerHTML=i18next.t('cspace_recent_open_download');
+            DomUtils.find(document.body,'.cspace_list_title_name .cspace_list_title_inner')[0].innerHTML=i18next.t('cspace_file_name');
+            DomUtils.find(document.body,'.cspace_list_title_time .cspace_list_title_inner')[0].innerHTML=i18next.t('cspace_update_time');
+            DomUtils.find(document.body,'.cspace_list_title_size .cspace_list_title_inner')[0].innerHTML=i18next.t('cspace_file_size');
+            DomUtils.find(document.body,'.cspace_main_coop_add .cspace_toolbar_text')[0].innerHTML=i18next.t('cspace_new_shared_folder');
+
+            var loadReadyDeferred;
+            var frameConf = {};
+            try {
+                frameConf = JSON.parse(window.name);
+            } catch (e) {
+            }
+            var hostOrigin = frameConf.hostOrigin;
+            var containerId = frameConf.containerId;
+
+            if (CSpaceUtils.isInIframe()) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://g.alicdn.com/dingding/dingtalk-pc-api/2.4.3/index.js");
+                script.setAttribute("async", true);
+                script.setAttribute("type", "text/javascript");
+
+                // var script1 = document.createElement("script");
+                // script1.setAttribute("src", "https://g-assets.daily.taobao.net/DingTalkWeb/dingtalk-pc-internal-api/0.2.1/index.js");
+                // script1.setAttribute("async", true);
+                // script1.setAttribute("type", "text/javascript");
+
+                var header = document.getElementsByTagName("head")[0];
+                header.appendChild(script);
+                // header.appendChild(script1);
+
+                loadReadyDeferred = new Deferred();
+                window.addEventListener('message', function (event) {
+                    var originData = event.data;
+                    var origin = event.origin;
+                    if (origin === hostOrigin) {
+                        var msgId = originData.msgId;
+                        if (originData.type === 'event' && msgId) {
+                            var eventName = originData.eventName;
+                            if ("openUploadDialog" == msgId) {
+                                if ("refresh" == eventName) {
+                                    window.CSpaceRootIns && window.CSpaceRootIns.refreshFileList();
+                                } else if ("hideMask" == eventName) {
+                                    window.CSpaceRootIns && window.CSpaceRootIns.hideMaskLayer();
+                                } else if ("showMask" == eventName) {
+                                    window.CSpaceRootIns && window.CSpaceRootIns.showMaskLayer();
+                                }
+                            } else if ("initGlobalParams" == msgId) {
+                                if ("initGlobalParamsEventName" == eventName) {
+                                    var globalParams = originData.body;
+                                    var uploadFiles = globalParams.uploadFiles;
+                                    var uploadFilesStatus = globalParams.uploadFilesStatus;
+                                    var hashMap = globalParams.hashMap;
+                                    var newRedDotMap = globalParams.newRedDotMap;
+
+                                    if (hashMap) {
+                                        window.__oHistoryHash = {
+                                            oid : hashMap.orgId, //org id
+                                            sid : hashMap.spaceId,//sapce id
+                                            p : hashMap.path,//path
+                                            pt : hashMap.panelType,//panel type
+                                            org : hashMap.isPublicOrg,
+                                            sk : hashMap.sortKey,
+                                            sv : hashMap.sortValue,
+                                            coopRole : hashMap.coopRole,
+                                            newRedDotMap:newRedDotMap
+                                        };
+                                    }
+
+                                    loadReadyDeferred.resolve();
+                                    //FileUploadData.getInstance().setUploadFiles(uploadFiles);
+                                    //FileUploadData.getInstance().setUploadFileStatus(uploadFilesStatus);
+                                } else if ("fileUploadSuccess" == eventName) {
+                                    var result = originData.body;
+                                    FileUploadData.getInstance().fileUploadSuccess(result);
+                                } else if ("fileUploadError" == eventName) {
+                                    var result = originData.body;
+                                    FileUploadData.getInstance().fileUploadError(result);
+                                } else if ("fileProgress" == eventName) {
+                                    var result = originData.body;
+                                    FileUploadData.getInstance().fileProgress(result);
+                                } else if ("queueuploadstart" == eventName) {
+                                    FileUploadData.getInstance().fileQueueUploadStart();
+                                }
+                            } else if ("uploadFiles" == msgId) {
+                                var body = originData.body || {};
+                                if("uploadFilesEventName" == eventName){
+                                    FileUploadData.getInstance().appendFileItems(body.files);
+                                }
+                            }  else if("removeFiles" == msgId){
+                                var clientId = originData.body || {};
+                                if ("removeFilesEventName" == eventName) {
+                                    FileUploadData.getInstance().removeFileItem(clientId);
+                                }
+                            } else if ("stopAll" == msgId) {
+                                if ("stopAllEventName" == eventName) {
+                                    FileUploadData.getInstance().stopAll();
+                                }
+                            } else if ("refreshToken" == msgId) {
+                                var body = originData.body || {};
+                                body.result && ReconnectRequest.recoverAjax();
+                            } else if ("selectedMemberIds" == msgId) {
+                                var body = originData.body || {};
+                                if ("selectedMemberIdsEventName" == eventName) {
+                                    FileUploadData.getInstance().setSelectedMemberIds(body.memberIds);
+                                }
+                            } else if("selectedConv" == msgId){
+                                var body = originData.body || {};
+                                if ("selectedConvEventName" == eventName) {
+                                    FileUploadData.getInstance().setConvOrPerson(body);
+                                }
+                            }
+                        }
+                    }
+                });
+
+                var msgForSend = {
+                    msgId : "initGlobalParams",
+                    methodName : "_space.init.global.params",
+                    containerId : containerId,
+                    body : {}
+                }
+                window.parent.postMessage(msgForSend, hostOrigin);
+            }
+
+            Deferred.when(loadReadyDeferred).then(function () {
+                window.CSpaceRootIns = CSpaceRoot.getInstance();
+                FileUploadData.getInstance();
+                if (CSpaceUtils.isInIframe()) {
+                    CSpaceRootIns.on("uploadHash", function (params) {
+                        var msgForSend = {
+                            msgId : "uploadHash",
+                            methodName : "_space.uploader.param.setHash",
+                            containerId : containerId,
+                            body : params
+                        };
+                        window.parent.postMessage(msgForSend, hostOrigin);
+                    });
+
+                    CSpaceRootIns.on("contentmousedown", function (e) {
+                        var msgForSend = {
+                            msgId : "space.event.mousedown",
+                            methodName : "_space.event.mouseclick",
+                            containerId : containerId,
+                            body : {}
+                        }
+                        window.parent.postMessage(msgForSend, hostOrigin);
+                    });
+
+
+                    CSpaceRootIns.on("contentclick", function (e) {
+                        var msgForSend = {
+                            msgId : "space.event.click",
+                            methodName : "_space.event.mouseclick",
+                            containerId : containerId,
+                            body : {}
+                        }
+                        window.parent.postMessage(msgForSend, hostOrigin);
+                    });
+
+                    CSpaceRootIns.on("contentdblclick ", function (e) {
+                        var msgForSend = {
+                            msgId : "space.event.dblclick",
+                            methodName : "_space.event.mouseclick",
+                            containerId : containerId,
+                            body : {}
+                        }
+                        window.parent.postMessage(msgForSend, hostOrigin);
+                    });
+                }
+            });
+
+        }, 2);
+    }).wait(function () {
+                return document.getElementById("root_finish_div");
+            });
+</script>
+<script type="text/javascript"  src="https://g.alicdn.com/ilw/cloud-storage-project/0.6.9/scripts/cspaceuploader/cspaceuploader-min.js"></script> -->
+</body>
+</html>

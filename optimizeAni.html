@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style type="text/css">
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	#a,#b{
+		position: absolute;
+		width: 100px;
+		height: 100px;
+	}
+	#a{
+		left: 30px;
+		top: 30px;
+		z-index: 2;
+		background: #f00;
+		animation: move 1s linear;
+	}
+	#b{
+		z-index:1;
+		background: #00f;
+	}
+	@keyframes move {
+		from{left:30px;}
+		to{left:100px;}
+	}
+</style>
+</head>
+<body>
+    <div id='a'>A</div>
+    <div id='b'>B</div>
+</body>
+</html>

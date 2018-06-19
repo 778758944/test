@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <script>
+      function Foo(x, y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      Foo.prototype.sayX = function() {
+        console.log(this.x);
+      }
+
+      Foo.prototype.sayY = function() {
+        console.log(this.y);
+      }
+
+      function inhrit(sclass, extend) {
+        function nclass(...arg) {
+          sclass.apply(this, arg);
+        }
+
+        Object.assign(extend, sclass.prototype);
+        nclass.prototype = Object.create(extend);
+        nclass.prototype.constructor = nclass;
+
+        return nclass;
+      }
+
+      var Bar = inhrit(Foo, {
+        sayZ: function() {
+          console.log(this.z);
+        }
+      });
+
+      var bar = new Bar(1, 2, 3);
+
+      console.log(bar);
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

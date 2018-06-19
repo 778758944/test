@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script>
+    console.log("start");
+    setTimeout(function() {
+      console.log("timeout");
+    }, 100);
+
+    new Promise(function(resolve, reject){
+      console.log("promise resolve");
+      resolve();
+    }).then(function() {
+      console.log('dsd');
+    }).then(function() {
+      console.log("dddd");
+    })
+
+
+    console.log("end");
+  </script>
+</body>
+</html>

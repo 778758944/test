@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>arg arrow test</title>
+  </head>
+  <body>
+    <script>
+      var a = (a, b) => {
+        // console.log(arguments);
+        console.log(a, b);
+      }
+      a(1, 2);
+      var b = function(x, y) {
+        a(...arguments);
+        console.log(x, y);
+      }
+      b(3, 4);
+    </script>
+  </body>
+</html>

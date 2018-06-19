@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <div id="grow">grow</div>
+    <div id="create">create</div>
+    <script>
+
+      var x = [];
+      function grow() {
+        // for(var i = 0; i < 10000; i++) {
+        //   document.body.appendChild(document.createElement('div'));
+        // }
+        x.push(new Array(1000000).join('x'));
+      }
+
+      document.getElementById('grow').addEventListener('click', grow);
+
+      var detachedNodes;
+      function create() {
+        var ul = document.createElement('ul');
+        for (var i = 0; i < 10; i++) {
+          var li = document.createElement('li');
+          ul.appendChild(li);
+        }
+        detachedNodes = ul;
+      }
+      document.getElementById('create').addEventListener("click", create);
+    </script>
+</body>
+</html>

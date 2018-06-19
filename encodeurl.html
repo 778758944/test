@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+	<a id="aa">test</a>
+    <script>
+    	var url=encodeURI("http://localhost:8888/test/test.html?name=小波#name=小波");
+
+    	var ss=encodeURIComponent('name=小波');
+    	console.log(ss);
+    	// url="http://localhost:8888/test/test.html?"+ss;
+    	document.getElementById('aa').href=url
+
+    </script>
+</body>
+</html>

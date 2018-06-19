@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+<link href="" rel="stylesheet">
+<style>
+  *{
+    padding: 0;
+    margin: 0;
+  }
+  .one_px{
+    width: 200px;
+    height: 1px;
+    background-color: #00f;
+    position: relative;
+  }
+  .one_px::after{
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: #f00;
+    position: absolute;
+    bottom: -5px;
+    /*transform: scaleY(0.5);*/
+  }
+  .border-onepx{
+    margin-top: 10px;
+    width: 200px;
+    height: 10px;
+    border: 1px solid #00f;
+  }
+</style>
+</head>
+<body>
+    <div class="one_px"></div>
+    <div class='border-onepx'></div>
+</body>
+</html>

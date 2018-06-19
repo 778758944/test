@@ -1,0 +1,36 @@
+<html>
+  <head></head>
+  <body>
+    <script>
+      //
+      var object = {
+        way1: function() {
+          console.log(this);
+          function innerFunc() {
+            console.log(this);
+          }
+          innerFunc();
+        }
+      }
+      object.way1();
+      function fn() {
+        console.log("dddd");
+      }
+
+      Function.prototype.mybind = function(...arg) {
+        const obj = arg.splice(0, 1);
+        const that = this;
+        return function(...arg2) {
+          console.log(that);
+          that.apply(obj, [...arg, arg2]);
+        }
+      }
+
+      fn2 = fn.mybind(object);
+
+      fn2();
+
+
+    </script>
+  </body>
+</html>

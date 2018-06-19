@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <form method='POST' action='http://localhost:3000/'>
+    	<input type='text' name='name'/>
+    	<input type='text' name='age'/>
+      <!-- <input type="file" name='image'/> -->
+<!--     	<select name="sel">
+    		<option value="1">aa</option>
+    		<option value="2">bb</option>
+    		<option value="3">cc</option>
+    	</select>
+
+    	<input type='checkbox' value='1' name="no[]"/>
+    	<input type='checkbox' value='2' name='no[]'/>
+    	<input type='radio' value="1" name="no2"/>
+    	<input type='radio' value="2" name="no2"/> -->
+    	<input type='submit' value='submit'/>
+    </form>
+    <button id='btn'>click</button>
+    <script>
+    	var btn=document.getElementById('btn');
+    	console.log(document.forms[0][0]);
+    	console.log(document.forms[0].length);
+    	btn.onclick=function(){
+    		console.log(document.forms[0]['no[]'][0].value);
+    	}
+    </script>
+</body>
+</html>

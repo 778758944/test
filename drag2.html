@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>拖动效果</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            position: relative
+        }
+        .main{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-content: center;
+
+            flex-direction: column;
+
+            
+              
+        }
+        .img-box{
+            height: 200px;
+            border: 1px solid black;
+            margin: 100px;
+            position: relative ;
+
+        }
+        .select-box{
+          width: 40px;
+          height: 80px;
+          border: 1px solid black;
+          position: absolute;
+          top: 50px;
+          left: 100px
+        }
+      
+      .btns{
+        margin: 4px;
+        display: flex;
+
+      }
+      .btns>div{
+        flex-grow: 1;
+        text-align: center
+      }
+      
+        
+        
+    </style>
+</head>
+<body>
+    <div id="main" class="main">
+
+        <div class="img-box" id="big">
+                  
+        </div>
+    </div>
+    
+<script src="http://sun.aidaojia.com:8000/temp/hammer.js"></script>
+<script src="http://sun.aidaojia.com:8000/temp/zepto.min.js"></script>
+<script>
+
+//	Hammer.default.touchAction = 'auto'
+    $('body').on('touchmove', function(e){
+      e.stopPropagation()
+      e.preventDefault()
+    })
+    
+    var show = $('#big')
+    var hammer = new Hammer($('body')[0])
+    
+        hammer.get('rotate').set({ enable: true })
+        
+        var r = 0
+		var deg = 10
+		var flag;
+        hammer.on('rotatemove', function(ev){
+		r=r+ev.rotation;
+		show.css('transform','rotate('+rr+'deg)');		
+	});
+
+		function update(data){
+			show.css('transform', 'rotate('+deg+'deg)')
+			r = data
+		}
+</script>
+</body>
+</html>
