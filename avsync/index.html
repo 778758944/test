@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AV SYNC</title>
+</head>
+<body>
+    <video id='v' autoplay controls muted></video>
+    <audio id='a' autoplay></audio>
+    <!-- <video id='v2' autoplay controls src="/testvideo.mp4"></video> -->
+    <script>
+        const video = document.querySelector('#v');
+        const audio = document.querySelector('#a');
+        navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true,
+        }).then((stream) => {
+            console.log('stream: ', stream);
+            const videoTrack = stream.getVideoTracks()[0];
+            const audioTrack = stream.getAudioTracks()[0];
+
+            const videoTrackProcessor = new MediaStreamTrackProcessor({track: videoTrack});
+            const audioTrackProcessor = new MediaStreamTrackProcessor({track: audioTrack});
+
+            const genVideoTrack = new MediaStreamTrackGenerator({kind: 'video'});
+            const genAudioTrack = new MediaStreamTrackGenerator({kind: 'audio'});
+
+            const videoWorker = new Worker('/avsync/videoWorker.js');
+            const audioWorker = new Worker('/avsync/audioWorker.js');
+            
+            const videoTrackReader = videoTrackProcessor.readable;
+            const videoTrackWriter = genVideoTrack.writable;
+
+            videoWorker.postMessage({
+                reader: videoTrackReader,
+                writer: videoTrackWriter
+            }, {
+                transfer: [videoTrackReader, videoTrackWriter]
+            });
+
+            const audioTrackReader = audioTrackProcessor.readable
+            const audioTrackWriter = genAudioTrack.writable
+
+            audioWorker.postMessage({
+                reader: audioTrackReader,
+                writer: audioTrackWriter
+            }, {
+                transfer: [audioTrackReader, audioTrackWriter]
+            })
+
+            const genStream = new MediaStream([genVideoTrack, genAudioTrack]);
+            video.srcObject = genStream;
+
+            // MediaRecorder
+            // let sourceBuffer
+            // const recorder = new MediaRecorder(genStream, {mimeType: 'video/x-raw'});
+            // const source = new MediaSource();
+            // recorder.ondataavailable = async (e) => {
+            //     // console.log('e: ', e);
+            //     if (sourceBuffer) {
+            //         const buf = await e.data.arrayBuffer();
+            //         sourceBuffer.appendBuffer(buf);
+            //     }
+            // }
+            // recorder.start(30);
+
+            // source.addEventListener('sourceopen', () => {
+            //     console.log('sourceopen');
+            //     sourceBuffer = source.addSourceBuffer('video/x-raw');
+            // })
+
+            // video.src = URL.createObjectURL(source);
+
+            
+            // const audioContext = new AudioContext();
+            // const audioStreamSource = audioContext.createMediaStreamSource(genStream);
+
+            // const checkSync = () => {
+            //     const videoTime = video.currentTime;
+            //     const audioTime = audioContext.currentTime;  // Get the audio playback time
+            //     console.log('time: ', videoTime, audioTime);
+
+            //     // Compare audio and video times (you might need to buffer or delay one if they are off)
+            //     const offset = Math.abs(audioTime - videoTime);
+            //     console.log(`Audio-Video Offset: ${offset} seconds`);
+
+            //     if (offset > 0.1) {  // If offset is greater than 100ms, consider them out of sync
+            //         console.log('Audio and video are out of sync!');
+            //     } else {
+            //         console.log('Audio and video are in sync!');
+            //     }
+            // };
+            // setInterval(checkSync, 5000);
+            // video.srcObject = new MediaStream([genVideoTrack]);
+            // audio.srcObject = new MediaStream([genAudioTrack]);
+            // const v2 = document.getElementById('v2');
+            // console.log('v2: ', v2, v2.duration);
+            // v2.playbackRate = 2;
+            function videoFrameRenderCb(now, metadata) {
+                console.log('metadata: ', metadata);
+                video.requestVideoFrameCallback(videoFrameRenderCb);
+            }
+            video.requestVideoFrameCallback(videoFrameRenderCb)
+        })
+    </script>
+</body>
+</html>

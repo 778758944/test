@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
+</head>
+<body>
+    <video autoplay playsinline muted></video>
+    <video id="v2" autoplay playsinline muted></video>
+    <button id="btn">update constraint</button>
+    <script>
+        const btn = document.querySelector('#btn');
+        const videoEle = document.querySelector('video');
+        const videoEle2 = document.querySelector('#v2');
+        let videoTrack;
+        let cloneStream;
+        let o_stream;
+        navigator.mediaDevices.getUserMedia({
+            video: {
+                width: 1280,
+                height: 720
+            }
+        }).then((stream) => {
+            console.log('stream: ', stream);
+            videoEle.srcObject = stream;
+            videoTrack = stream.getVideoTracks()[0];
+            console.log(videoTrack.getCapabilities());
+            cloneStream = stream.clone(); 
+            o_stream = stream;
+            // console.log('stream: ', videoTrack);
+            // setTimeout(() => {
+            //     console.log('playback data: ', videoEle.getVideoPlaybackQuality());
+            // }, 5000);
+        }).catch((e) => {
+            console.log('error: ', e);
+        })
+
+        btn.addEventListener('click', () => {
+            // o_stream.getVideoTracks().forEach((track) => {
+            //     track.stop();
+            // })
+            const track = cloneStream.getVideoTracks()[0];
+            track.applyConstraints({
+                width: {max: 640},
+                height: {max: 360},
+                // frameRate: {min: 24}
+            }).then(() => {
+                // console.log('');
+                videoEle2.srcObject = cloneStream;
+            }).catch((e) => {
+                console.log('error: ', e);
+            });
+
+            // if (videoTrack) {
+            //     videoTrack.applyConstraints({
+            //         width: {min: 1280},
+            //         height: {min: 720},
+            //         frameRate: {min: 24}
+            //     }).catch((e) => {
+            //         console.log('error: ', videoTrack, e);
+            //         navigator.mediaDevices.getUserMedia({
+            //             video: {
+            //                 width: 640,
+            //                 height: 360
+            //             }
+            //         }).then((stream) => {
+            //             console.log('stream: ', stream);
+            //             videoEle.srcObject = stream;
+            //             videoTrack = stream.getVideoTracks()[0];
+            //             console.log(videoTrack.getCapabilities());
+            //         })
+            //     })
+            // }
+        })
+        // const array = [
+        //     './'
+        // ]
+        // for (let i = 0; i < 30; i++) {
+        //     const video = document.createElement('video');
+        //     video.width = 32 * 5;
+        //     video.height = 18 * 5;
+        //     document.body.appendChild(video);
+        //     video.src = './testvideoaudio.mp4';
+        //     video.setAttribute('autoplay', 'true');
+        //     video.setAttribute('muted', 'true');
+        //     video.setAttribute('playsinline', 'true');
+        //     // video.setAttribute('muted', '');
+        //     video.muted = true;
+        //     // video.play();
+        // }
+    </script>
+</body>
+</html>

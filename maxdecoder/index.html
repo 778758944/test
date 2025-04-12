@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cv {
+            position: relative;
+            width: 640px;
+            height: 360px;
+            border: 1px solid #f00;
+        }
+        #vvv {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 160px;
+            height: 90px;
+        }
+    </style>
+</head>
+<body>
+    <button id="rp">replace video</button>
+    <div class="cv">
+        <video controls autoplay muted></video>
+    </div>
+    <video controls autoplay muted id="vvv"></video>
+    <script>
+        let video = document.querySelector('video');
+        const rpBtn = document.querySelector('#rp');
+        const container = document.querySelector('.cv');
+        const ss = new Map();
+        const vvv = document.querySelector('#vvv');
+        let srcObject;
+        // const dd = {};
+        navigator.mediaDevices.getUserMedia({audio: false, video: { width: 640, height: 360 }}).then((stream) => {
+            srcObject = stream;
+            video.srcObject = stream;
+            vvv.srcObject = stream;
+            // const rpBtn = document.querySelector('#rp');
+            // const video = document.querySelector('video');
+            // video.srcObject = stream;
+            // rpBtn.addEventListener("click", () => {
+            //     // console.log('dffcff');
+            //     let video = document.querySelector('video');
+            //     // video.srcObject = null;
+            //     video.remove();
+            //     setTimeout(() => {
+            //         video.srcObject = null;
+            //     }, 1000);
+            //     const newVideo = document.createElement('video');
+            //     newVideo.srcObject = stream;
+            //     newVideo.controls = true;
+            //     newVideo.autoplay = true;
+            //     newVideo.muted = true;
+            //     document.body.append(newVideo);
+        });
+
+        rpBtn.addEventListener('click', () => {
+            console.log('ddd');
+            // ss.set('dddd', video);
+            // dd['dddd'] = video;
+            // video.srcObject = null;
+            video.remove();
+            video.srcObject = null;
+            video = null;
+
+            const newV = document.createElement('video');
+            newV.muted = true;
+            newV.setAttribute('autoplay', 'true');
+            newV.setAttribute('playsinline', 'true');
+            newV.srcObject = srcObject;
+
+            container.appendChild(newV);
+
+            container.style.left = '100px'
+            
+            // delete dd.dddd;
+            // ss.delete('dddd');
+        })
+
+    </script>
+</body>
+</html>

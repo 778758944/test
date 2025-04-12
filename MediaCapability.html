@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Capability detection</title>
+</head>
+<body>
+    <script>
+        if ('mediaCapabilities' in navigator) {
+            const mediaConfig = {
+                type: 'webrtc', // 'file' for local files or 'media-source' for streamed content
+                video: {
+                    // contentType: 'video/mp4; codecs="avc1.42E01E"', // Example codec (VP9 in this case)
+                    contentType: 'video/mp4; codecs="avc1"',
+                    width: 1280,
+                    height: 720,
+                    // bitrate: 500000, // 5 Mbps
+                    bitrate: 2500000,
+                    framerate: 30,
+                }
+            };
+
+            const videoConfig = {
+                type: "webrtc",
+                video: {
+                    contentType: 'video/mp4; codecs="avc1.64001F"', // valid content type
+                    width: 1280, // width of the video
+                    height: 720, // height of the video
+                    bitrate: 10000, // number of bits used to encode 1s of video
+                    framerate: 30, // number of frames making up that 1s.
+                },
+            };
+
+
+            const webrtcH264Config = {
+                type: 'file', // Specify the media type as WebRTC
+                video: {
+                    contentType: 'video/mp4; codecs="avc1.64001F"', // H.264 codec
+                    width: 1280, // Typical width for WebRTC
+                    height: 720, // Typical height for WebRTC
+                    bitrate: 2500000, // Bitrate (2.5 Mbps)
+                    framerate: 24, // Frame rate
+                }
+            };
+
+            navigator.mediaCapabilities.decodingInfo(webrtcH264Config).then(result => {
+                console.log('result: ', result);
+                if (result.supported) {
+                    console.log("Video decoding supported.");
+                    if (result.smooth && result.powerEfficient) {
+                        console.log("Hardware-accelerated decoding is likely being used (smooth and power-efficient).");
+                    } else {
+                        console.log("Software decoding is likely being used (not power-efficient or smooth).");
+                    }
+                } else {
+                    console.log("Video decoding not supported for the given configuration.");
+                }
+            }).catch(error => {
+                console.error("Error checking decoding capabilities: ", error);
+            });
+        } else {
+            console.log("Media Capabilities API is not supported in this browser.");
+        }
+    </script>
+</body>
+</html>

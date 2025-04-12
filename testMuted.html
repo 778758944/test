@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test muted</title>
+</head>
+<body>
+    <video autoplay id='vv'></video>
+    <button id="mute">mute</button>
+    <script>
+        const video = document.getElementById('vv');
+        const muteBtn = document.getElementById('mute');
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then((stream) => {
+            video.srcObject = stream;
+            const track = stream.getAudioTracks()[0];
+            const videoTrack = stream.getVideoTracks()[0];
+            console.log('track: ', track);
+            if (track) {
+                track.onmute = () => {
+                    console.log('audio track muted');
+                }
+            }
+            if (videoTrack) {
+                videoTrack.onmute = () => {
+                    console.log('video track muted')
+                }
+            }
+        });
+    </script>
+</body>
+</html>

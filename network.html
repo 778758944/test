@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>online/offline</title>
+</head>
+<body>
+    <script>
+        window.addEventListener('online', () => {
+            console.log('online: ', navigator.connection);
+        });
+
+        window.addEventListener('offline', () => {
+            console.log('offline: ', navigator.connection);
+        })
+    </script>
+</body>
+</html>

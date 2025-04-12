@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sub page</title>
+</head>
+<body>
+    <script>
+        addEventListener("message", (e) => {
+            // console.log("data: ", data);
+            const m = e.data;
+            e.data.age = 11;
+            console.log("mmm: ", m, e.data);
+            // const sharedArray = new Int32Array(data.sharedBuffer);
+            // console.log(sharedArray[1]);
+        });
+    </script>
+</body>
+</html>

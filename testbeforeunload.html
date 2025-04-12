@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>jjjjj</h1>
+    <script>
+        window.addEventListener('beforeunload', function (event) {
+            console.log('zzdc');
+            // Custom actions before the page is closed or reloaded
+            while (true) {
+                console.log('block');
+            }
+            console.log('User is leaving the page!');
+            // alert('ccc');
+            // setTimeout(() => {
+            //     alert('ccc');
+            // }, 1000);
+
+            // Optionally show a confirmation dialog (note: this behavior may be restricted by browsers)
+            event.preventDefault(); // Chrome requires this for custom messages
+            event.returnValue = ''; // This is for legacy browsers
+        });
+    </script>
+</body>
+</html>

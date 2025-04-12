@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Audio</title>
+</head>
+<body>
+    <audio src="./test.mp3"></audio>
+    <button id="btn1" data-playing="false" role="switch" aria-checked="false">
+        <span>Play(resume)/Pause(suspend)</span>
+    </button>
+    <button id="btn2" data-playing="false" role="switch" aria-checked="false">
+        <span>Play/Pause</span>
+    </button>
+    <div>
+        <span>Volume: </span>
+        <input type="range" id="volume" min="0" max="2" value="1" step="0.01" />
+    </div>
+    <div>
+        <span>Stereo: </span>
+        <input type="range" id="panner" min="-1" max="1" value="0" step="0.01" />
+    </div>
+    <script>
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+        (async function t () {
+        
+            const audioElement = document.querySelector("audio");
+            // const track = audioContext.createMediaElementSource(audioElement);
+            const stream = await navigator.mediaDevices.getUserMedia({ video: false, audio: { channelCount: 2 } });
+            audioElement.srcObject = stream;
+            const track = audioContext.createMediaStreamSource(stream);
+
+            // change volume
+            const gainNode = audioContext.createGain();
+
+            // stereo change
+            const pannerOption = { pan: 0 };
+            const panner = new StereoPannerNode(audioContext, pannerOption);
+
+            track.connect(gainNode).connect(panner).connect(audioContext.destination);
+
+            const playButton = document.querySelector('#btn1');
+            const ppButton = document.querySelector('#btn2');
+            playButton.addEventListener("click", () => {
+                if (audioContext.state === "suspended") {
+                    audioContext.resume();
+                } else {
+                    audioContext.suspend();
+                }
+
+                // if (playButton.dataset.playing === "false") {
+                //     audioElement.play();
+                //     playButton.dataset.playing = "true";
+                // } else if(playButton.dataset.playing === "true") {
+                //     audioElement.pause();
+                //     playButton.dataset.playing = "false";
+                // }
+
+            }, false);
+
+            ppButton.addEventListener("click", () => {
+                if (playButton.dataset.playing === "false") {
+                    audioElement.play();
+                    playButton.dataset.playing = "true";
+                } else if(playButton.dataset.playing === "true") {
+                    audioElement.pause();
+                    playButton.dataset.playing = "false";
+                }
+            })
+
+            const volumeInput = document.querySelector("#volume");
+            volumeInput.addEventListener("input", () => {
+                gainNode.gain.value = volumeInput.value;
+            }, false);
+
+            const pannerCtrl = document.querySelector("#panner");
+            pannerCtrl.addEventListener("input", () => {
+                panner.pan.value = pannerCtrl.value;
+            }, false);
+
+            audioElement.addEventListener('pause', () => {
+                console.log('pause');
+            })
+        })();
+
+
+    </script>
+</body>
+</html>

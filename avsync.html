@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AV SYNC</title>
+</head>
+<body>
+    <video id='v' autoplay controls></video>
+    <audio id='a' autoplay></audio>
+    <script>
+        const video = document.querySelector('#v');
+        const audio = document.querySelector('#a');
+        navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true,
+        }).then((stream) => {
+            console.log('stream: ', stream);
+            const videoTrack = stream.getVideoTracks()[0];
+            const audioTrack = stream.getAudioTracks()[0];
+
+            const videoTrackProcessor = new MediaStreamTrackProcessor({track: videoTrack});
+            const audioTrackProcessor = new MediaStreamTrackProcessor({track: audioTrack});
+
+            const genVideoTrack = new MediaStreamTrackGenerator({kind: 'video'});
+            const genAudioTrack = new MediaStreamTrackGenerator({kind: 'audio'});
+            
+            const videoTransformer = new TransformStream({
+                async transform(videoFrame, controller) {
+                    // controller.enqueue(videoFrame);
+                    // console.log('video: ', videoFrame.timestamp);
+                    setTimeout(() => {
+                        controller.enqueue(videoFrame);
+                    }, 1000)
+                    // controller.enqueue(videoFrame);
+                },
+            });
+
+            const audioTransformer = new TransformStream({
+                async transform(audioFrame, controller) {
+                    // console.log('audio: ', audioFrame.timestamp);
+                    controller.enqueue(audioFrame);
+                    // setTimeout(() => {
+                    //     // console.log('audio: ', audioFrame.timestamp);
+                    //     controller.enqueue(audioFrame);
+                    // }, 1000);
+                    // controller.enqueue(audioFrame);
+                },
+            });
+
+
+            videoTrackProcessor.readable
+                .pipeThrough(videoTransformer)
+                .pipeTo(genVideoTrack.writable);
+
+            audioTrackProcessor.readable
+                .pipeThrough(audioTransformer)
+                .pipeTo(genAudioTrack.writable);
+
+            // console.log('av track: ', genVideoTrack, genAudioTrack);
+
+            const genStream = new MediaStream([genVideoTrack, genAudioTrack]);
+            video.srcObject = genStream;
+            // setInterval(() => {
+            //     console.log('av track: ', genVideoTrack, genAudioTrack);
+            // }, 10000);
+            // video.srcObject = new MediaStream([genVideoTrack]);
+            // audio.srcObject = new MediaStream([genAudioTrack]);
+        })
+    </script>
+</body>
+</html>

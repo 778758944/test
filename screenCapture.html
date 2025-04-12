@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Capture</title>
+</head>
+<body>
+    <video width="640" height="360" id="video" autoplay></video>
+    <button id="btn">Start Capture</button>
+    <script>
+        alert('kk');
+        const video = document.getElementById("video");
+        const btn = document.getElementById("btn");
+
+        const displayMediaOptions = {
+            video: {
+                displaySurface: "window"
+            },
+            audio: false
+        }
+
+        async function startCapture(displayMediaOptions) {
+            let captureStream = null;
+
+            try {
+                captureStream = await navigator.mediaDevices.getDisplayMedia(
+                displayMediaOptions
+                );
+            } catch (err) {
+                console.error(`Error: ${err}`);
+            }
+            video.srcObject = captureStream;
+            return captureStream;
+        }
+
+        btn.onclick = startCapture;
+
+        // setTimeout(() => {
+        //     navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then((mediaStream) => {
+        //         video.srcObject = mediaStream;
+        //     }).catch(() => {})
+        // }, 2000)
+    </script>
+</body>
+</html>

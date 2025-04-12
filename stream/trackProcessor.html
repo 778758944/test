@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <video id="v" muted autoplay playsinline></video>
+    <canvas width="640" height="360" id="cvs"></canvas>
+    <script>
+        const video = document.querySelector("#v");
+        const cvs = document.querySelector("#cvs");
+        const ctx = cvs.getContext('2d');
+        navigator.mediaDevices.getUserMedia({
+            video: {
+                width: 640,
+                height: 360,
+                frameRate: 60,
+            }
+        }).then((stream) => {
+            video.srcObject = stream;
+            const trackProcessor = new MediaStreamTrackProcessor({ track: stream.getVideoTracks()[0], maxBufferSize: 2400 });
+            console.log('trackProcessor: ', trackProcessor);
+            const reader = trackProcessor.readable.getReader({ mode: 'byob' });
+            console.log('reader: ', reader);
+            setTimeout(() => {
+                reader.read().then(({ value, done }) => {
+                    // video.pause();
+                    console.log(value);
+                    ctx.drawImage(value, 0, 0);
+                    value.close();
+                    reader.releaseLock();
+                    setTimeout(() => {
+                        const reader = trackProcessor.readable.getReader();
+                        reader.read().then(({ value, done }) => {
+                            // video.pause();
+                            ctx.drawImage(value, 0, 0);
+                            value.close();
+                        });
+                    }, 5000);
+                });
+            }, 5000);
+        })
+    </script>
+</body>
+</html>

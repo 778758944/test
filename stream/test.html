@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const stream = new ReadableStream({
+            start(controller) {
+                console.log('start');
+            },
+            pull(controller) {
+                console.log('pull: ', controller.byobRequest.view);
+                controller.byobRequest.view[0] = 10;
+                controller.byobRequest.respond(1);
+                // controller.enqueue('eee');
+                // controller.close();
+                // controller.enqueue('eee');
+            },
+            type: 'bytes'
+        }, { highWaterMark: 0 });
+        const reader = stream.getReader({mode: "byob"});
+        const buffer = new SharedArrayBuffer(2);
+        reader.read(new Uint8Array(buffer, 0, 1)).then(({ done, value }) => {
+            console.log('xxx: ', done, value.byteLength, value);
+            // reader.read(new Uint8Array(value.buffer, 1, 1)).then(({done, value}) => {
+            //     console.log('xxx2: ', done, value.byteLength, value);
+            // })
+        });
+    </script>
+</body>
+</html>

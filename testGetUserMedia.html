@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>1. Make a phone call</li>
+        <li>2. click 'Call getUserMedia' during phone call</li>
+        <li>3. should be able to see the alert of get media success</li>
+        <li>4. Hangup</li>
+        <li>5. Check if there is a 'unmuted' alert message</li>
+    </ul>
+    <video id="v1" autoplay muted></video>
+    <video id="v2" autoplay muted></video>
+    <button id="call">Call getUserMedia</button>
+    <script>
+        const callBtn = document.getElementById('call');
+        const v1 = document.querySelector('#v1');
+        const v2 = document.querySelector('#v2');
+        let deviceid;
+        // navigator.mediaDevices.enumerateDevices().then((devices) => {
+        //     console.log(devices);
+        //     devices.some(({ kind, deviceId }) => {
+        //         console.log('device id: ', deviceId);
+        //         if (kind === 'videoinput') {
+        //             deviceid = deviceId
+        //             return true;
+        //         }
+        //         return false;
+        //     })
+        // })
+        callBtn.addEventListener('click', () => {
+            navigator.mediaDevices.getUserMedia({ video: {
+                deviceId: {exact: 'B5B5F6ACE1F9F98C2BE256B92FA7A567A3DB3AB8'}
+            }, audio: false}).then((stream) => {
+                v1.srcObject = stream;
+
+                // navigator.mediaDevices.enumerateDevices().then((devices) => {
+                //     console.log(devices);
+                //     devices.some(({ kind, deviceId }) => {
+                //         console.log('device id: ', deviceId);
+                //         if (kind === 'videoinput') {
+                //             deviceid = deviceId
+                //             return true;
+                //         }
+                //         return false;
+                //     })
+                // })
+                // alert('get user media success');
+                // const track = stream.getAudioTracks()[0];
+                // alert(`get user media success, muted: ${track.muted}`);
+                // track.addEventListener('mute', () => {
+                //     alert('muted');
+                // })
+
+                // track.addEventListener('unmute', () => {
+                //     alert('unmuted');
+                // })
+                // setTimeout(() => {
+                //     // stream.getVideoTracks()[0].applyConstraints({
+                //     //     width: 1280,
+                //     //     height: 720
+                //     // });
+                //     // stream.getVideoTracks()[0].enabled = false;
+                //     navigator.mediaDevices.getUserMedia({
+                //         video: {
+                //             width: 1280,
+                //             height: 720,
+                //             deviceId: deviceid
+                //         }
+                //     }).then((stream2) => {
+                //         v2.srcObject = stream2;
+                //         console.log(stream2.getVideoTracks()[0].getSettings());
+                //     }).catch((e) => {
+                //         console.log(e);
+                //     })
+                // }, 5000);
+                // navigator.mediaDevices.getUserMedia({
+                //     video: {
+                //         width: 1280,
+                //         height: 720,
+                //         deviceId: deviceid
+                //     }
+                // }).then((stream2) => {
+                //     v2.srcObject = stream2;
+                // }).catch((e) => {
+                //     console.log(e);
+                // })
+            });
+
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        async function checkHighProfileH264Support() {
+            if (!('VideoDecoder' in window)) {
+                console.log('WebCodecs API not supported in this browser.');
+                return false;
+            }
+
+            const config = {
+                // codec: 'avc1.64001F', // H.264 High Profile, Level 3.1
+                codec: 'avc1.F4001F',
+                width: 1280,
+                height: 720,
+                bitrate: 500000,
+                framerate: 30,
+            };
+
+            let isSupported = false;
+
+            try {
+                isSupported = await VideoDecoder.isConfigSupported(config);
+                if (isSupported.supported) {
+                    console.log('H.264 High Profile decoding is supported.');
+                } else {
+                    console.log('H.264 High Profile decoding is not supported.');
+                }
+            } catch (e) {
+                console.error('Error checking codec support:', e);
+            }
+
+            return isSupported.supported;
+        }
+
+    // Example usage:
+
+        checkHighProfileH264Support();
+    
+    
+    </script>
+</body>
+</html>
